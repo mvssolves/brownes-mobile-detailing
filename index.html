@@ -784,7 +784,7 @@
 
   // floating dock — appears once you scroll past the hero fold
   const dock = document.getElementById('dock');
-  function updateDock() { if (dock) dock.classList.toggle('show', window.scrollY > 140); }
+  function updateDock() { if (dock) dock.classList.add('show'); } // always visible; slides up once on load
 
   // dock nav selector — a highlight pill slides to whichever linked section is in view
   const hl = dock ? dock.querySelector('.dock-hl') : null;
