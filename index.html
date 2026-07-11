@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browne's Mobile Detailing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0f0f0f',
+            secondary: '#262626',
+            accent: '#e01f26',
+          },
+          fontFamily: {
+            heading: ['Syne', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #0f0f0f; background: #ffffff; margin: 0; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; }
+    .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+    /* smooth scroll-reveal — fade + rise, eased. data-stagger sets per-child --d delay in JS */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); transition-delay: var(--d, 0ms); will-change: opacity, transform; }
+    .reveal.in { opacity: 1; transform: none; }
+    /* header shadow deepens once you scroll off the top */
+    #site-header { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #site-header.scrolled { box-shadow: 0 8px 30px -12px rgba(0,0,0,.5); border-color: rgba(255,255,255,.12); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .animate-on-scroll { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+  <noscript><style>.reveal,.animate-on-scroll{opacity:1!important;transform:none!important;}</style></noscript>
+</head>
+<body style="margin:0; padding:0;">
+
+<header id="site-header" class="sticky top-0 z-50 backdrop-blur-xl bg-[#0f0f0f]/90 border-b border-white/10">
+  <nav class="max-w-6xl mx-auto px-6 sm:px-8 py-3 flex items-center justify-between">
+    <a href="#hero" class="flex items-center group">
+      <img src="logo.jpg" alt="Browne's Mobile Detailing — Interior & Exterior Detail" class="h-11 md:h-12 w-auto transition-transform duration-300 group-hover:scale-[1.03]">
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8" style="font-family: 'Inter', sans-serif;">
+      <li><a href="#services" class="text-sm text-white/70 hover:text-white transition-colors font-medium">Packages</a></li>
+      <li><a href="#process" class="text-sm text-white/70 hover:text-white transition-colors font-medium">Process</a></li>
+      <li><a href="#about" class="text-sm text-white/70 hover:text-white transition-colors font-medium">About</a></li>
+      <li><a href="#reviews" class="text-sm text-white/70 hover:text-white transition-colors font-medium">Reviews</a></li>
+      <li><a href="#contact" class="text-sm text-white/70 hover:text-white transition-colors font-medium">Contact</a></li>
+    </ul>
+
+    <div class="hidden md:flex items-center gap-3">
+      <a href="tel:+19496805141" class="flex items-center gap-2 text-sm text-white font-medium hover:text-[#e01f26] transition-colors" style="font-family: 'Inter', sans-serif;">
+        <i data-lucide="phone" class="w-4 h-4"></i>
+        (949) 680-5141
+      </a>
+      <a href="#contact" class="px-5 py-2.5 bg-[#e01f26] text-white text-sm font-semibold rounded-full hover:bg-[#b01419] transition-all hover:shadow-lg hover:shadow-[#e01f26]/25 hover:-translate-y-0.5" style="font-family: 'Inter', sans-serif;">
+        Book Now
+      </a>
+    </div>
+
+    <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-[#e01f26] text-white" aria-label="Menu">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-[#0f0f0f] border-t border-white/10 px-6 py-6" style="font-family: 'Inter', sans-serif;">
+    <ul class="flex flex-col gap-4">
+      <li><a href="#services" class="block text-white/80 font-medium">Packages</a></li>
+      <li><a href="#process" class="block text-white/80 font-medium">Process</a></li>
+      <li><a href="#about" class="block text-white/80 font-medium">About</a></li>
+      <li><a href="#reviews" class="block text-white/80 font-medium">Reviews</a></li>
+      <li><a href="#contact" class="block text-white/80 font-medium">Contact</a></li>
+      <li><a href="tel:+19496805141" class="block text-white/80 font-medium">Call (949) 680-5141</a></li>
+      <li><a href="#contact" class="inline-block mt-2 px-5 py-2.5 bg-[#e01f26] text-white text-sm font-semibold rounded-full">Book Now</a></li>
+    </ul>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if(btn && menu){
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+      }
+    })();
+  </script>
+</header>
+
+<section id="hero" class="relative bg-[#f5f5f5] overflow-hidden py-20 md:py-28 lg:py-32">
+  <div class="absolute top-40 -left-20 w-72 h-72 rounded-full bg-[#e01f26]/10 blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-[#0f0f0f]/5 blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-6 sm:px-8 relative">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <div class="relative z-10" data-stagger>
+        <div class="reveal inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#0f0f0f]/10 rounded-full mb-8" style="font-family: 'Inter', sans-serif;">
+          <span class="w-2 h-2 rounded-full bg-[#e01f26] animate-pulse"></span>
+          <span class="text-xs font-semibold tracking-wider uppercase text-[#0f0f0f]">Ladera Ranch · Open 24 Hours</span>
+        </div>
+
+        <h1 style="font-family: 'Syne', sans-serif;" class="reveal text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-[#0f0f0f] mb-6">
+          Showroom Shine,<br>
+          Delivered To Your<br>
+          <span class="italic text-[#e01f26]">Driveway<span class="text-[#0f0f0f]">.</span></span>
+        </h1>
+
+        <p style="font-family: 'Inter', sans-serif;" class="reveal text-lg leading-relaxed text-[#0f0f0f]/70 mb-10 max-w-xl">
+          Nathan brings meticulous, hand-crafted mobile detailing to Ladera Ranch and Orange County. Interior & exterior detail — detail-obsessed, reliable, and trusted by clients for years.
+        </p>
+
+        <div class="reveal flex flex-col sm:flex-row gap-4 mb-12" style="font-family: 'Inter', sans-serif;">
+          <a href="#contact" class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#e01f26] text-white font-semibold rounded-full hover:bg-[#b01419] transition-all hover:shadow-xl hover:shadow-[#e01f26]/25">
+            Book A Detail
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="tel:+19496805141" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border-2 border-[#0f0f0f] text-[#0f0f0f] font-semibold rounded-full hover:bg-[#0f0f0f] hover:text-white transition-all">
+            <i data-lucide="phone" class="w-4 h-4"></i>
+            Call Nathan
+          </a>
+        </div>
+
+        <div class="reveal flex items-center gap-6 pt-8 border-t border-[#0f0f0f]/10">
+          <div class="flex items-center gap-1">
+            <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+          </div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <p class="text-sm font-bold text-[#0f0f0f]">5.0 Rating</p>
+            <p class="text-xs text-[#0f0f0f]/60">Based on 40 five-star Yelp reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal relative" style="--d:180ms">
+        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-[#0f0f0f]/30 aspect-[4/5]">
+          <img src="https://zgnpmogdjnnhpwewavnr.supabase.co/storage/v1/object/public/project-images/55b2c0a7-3738-455c-b158-10c565b4c060/293e0d60-942e-410f-acc4-a88c65d2018f.png" alt="Freshly detailed black car after a hand wash and wax" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f0f]/60 via-transparent to-transparent"></div>
+
+          <div class="absolute top-6 left-6 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full flex items-center gap-2" style="font-family: 'Inter', sans-serif;">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#0f0f0f]"></i>
+            <span class="text-xs font-bold text-[#0f0f0f]">Insured & Trusted</span>
+          </div>
+        </div>
+
+        <div class="absolute -bottom-6 -left-6 bg-[#0f0f0f] text-white p-6 rounded-2xl shadow-xl max-w-[240px] hidden sm:block">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#e01f26] flex items-center justify-center flex-shrink-0">
+              <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+            </div>
+            <div style="font-family: 'Inter', sans-serif;">
+              <p class="text-xs uppercase tracking-wider text-[#e01f26] font-semibold mb-1">We Come To You</p>
+              <p class="text-sm leading-snug">Home. Office. Anywhere in OC.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute -top-4 -right-4 bg-[#e01f26] text-white px-5 py-3 rounded-full shadow-xl hidden sm:flex items-center gap-2" style="font-family: 'Syne', sans-serif;">
+          <i data-lucide="clock" class="w-4 h-4"></i>
+          <span class="text-sm font-bold">24/7 Booking</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="services" class="py-20 md:py-28 lg:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+      <div class="reveal max-w-2xl">
+        <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
+          <span class="w-8 h-px bg-[#e01f26]"></span> Detailing Packages
+        </span>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight" style="font-family: 'Syne', sans-serif;">
+          Built for Every Ride, <span class="text-[#e01f26]">Every Standard.</span>
+        </h2>
+        <p class="text-lg text-[#262626]/70 mt-6 leading-relaxed" style="font-family: 'Inter', sans-serif;">
+          From a quick exterior refresh to full paint correction and interior restoration, Nathan brings the shop to your driveway across Ladera Ranch and Orange County.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
+
+      <!-- Exterior Only Level 1 -->
+      <div class="reveal group bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
+          <i data-lucide="droplets" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Exterior — Level 1</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$80</span>
+        </div>
+        <p class="text-[#262626]/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">A sharp exterior refresh with a protective ceramic spray sealant.</p>
+        <ul class="space-y-2 text-sm text-[#262626]/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Wheel/tire detail + bug & tar removal</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Trim shine + ceramic spray sealant</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Door/trunk jambs + inside windows</li>
+        </ul>
+      </div>
+
+      <!-- Exterior Only Level 2 -->
+      <div class="reveal group bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
+          <i data-lucide="shield" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Exterior — Level 2</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$160</span>
+        </div>
+        <p class="text-[#262626]/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">Everything in Level 1, plus deep decontamination and long-life ceramic wax.</p>
+        <ul class="space-y-2 text-sm text-[#262626]/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Iron + chemical decontamination</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Clay bar treatment</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> 8–10 month ceramic wax + trim restore</li>
+        </ul>
+      </div>
+
+      <!-- Detailer's Choice - Featured -->
+      <div class="reveal group bg-[#0f0f0f] rounded-2xl p-8 border-2 border-[#e01f26] shadow-2xl relative hover:-translate-y-1 transition-all duration-300">
+        <span class="absolute -top-3 right-6 bg-[#e01f26] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full" style="font-family: 'Inter', sans-serif;">Most Booked</span>
+        <div class="w-14 h-14 rounded-xl bg-[#e01f26] flex items-center justify-center mb-6">
+          <i data-lucide="star" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-white" style="font-family: 'Syne', sans-serif;">Detailer's Choice</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$225</span>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">The best-value full detail — inside and out. <span class="text-white/50">~3 hours.</span></p>
+        <ul class="space-y-2 text-sm text-white/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Foam bath, rims &amp; wheel wells</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Interior steam clean + carpets</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Leather conditioning + UV protection</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Paint decon + 6-month ceramic</li>
+        </ul>
+      </div>
+
+      <!-- Express Wash and Wax -->
+      <div class="reveal group bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
+          <i data-lucide="spray-can" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Express Wash &amp; Wax</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$140</span>
+        </div>
+        <p class="text-[#262626]/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">A fast inside-and-out maintenance detail. <span class="text-[#262626]/50">1–2 hours.</span></p>
+        <ul class="space-y-2 text-sm text-[#262626]/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Exterior hand wash &amp; dry</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Interior vacuum + surface wipe down</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Windows in &amp; out + ceramic sealant</li>
+        </ul>
+      </div>
+
+      <!-- Premium Full Service -->
+      <div class="reveal group bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
+          <i data-lucide="crown" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Premium Full Service</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$350</span>
+        </div>
+        <p class="text-[#262626]/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">The complete showroom treatment, top to bottom. <span class="text-[#262626]/50">4–5 hours.</span></p>
+        <ul class="space-y-2 text-sm text-[#262626]/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Foam bath + engine bay detail</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Clay bar + machine paint polish</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Steam clean + hot water extraction</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Ozone treatment + full disinfection</li>
+        </ul>
+      </div>
+
+      <!-- Premium Interior Only -->
+      <div class="reveal group bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
+          <i data-lucide="armchair" class="w-7 h-7 text-white"></i>
+        </div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h3 class="text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Premium Interior</h3>
+          <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$225</span>
+        </div>
+        <p class="text-[#262626]/70 leading-relaxed mb-6" style="font-family: 'Inter', sans-serif;">A deep interior restoration that removes every odor and stain. <span class="text-[#262626]/50">3–3.5 hours.</span></p>
+        <ul class="space-y-2 text-sm text-[#262626]/80" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Double vacuum + carpet shampoo</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Hot water extraction + ozone disinfect</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Leather conditioning + air freshener</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <p class="text-center text-sm text-[#262626]/60 mt-10" style="font-family: 'Inter', sans-serif;">
+      Fleet, boat, or motorcycle? <a href="tel:+19496805141" class="text-[#e01f26] font-semibold hover:underline">Call Nathan for a custom quote →</a>
+    </p>
+  </div>
+</section>
+
+<section id="process" class="py-20 md:py-28 lg:py-32 bg-[#0f0f0f] relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle at 20% 30%, #e01f26 1px, transparent 1px), radial-gradient(circle at 80% 70%, #e01f26 1px, transparent 1px); background-size: 60px 60px;"></div>
+  <div class="max-w-6xl mx-auto px-6 sm:px-8 relative">
+    <div class="reveal text-center max-w-3xl mx-auto mb-20">
+      <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
+        <span class="w-8 h-px bg-[#e01f26]"></span> The Browne's Process <span class="w-8 h-px bg-[#e01f26]"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+        Four Steps to a <span class="text-[#e01f26]">Showroom Finish.</span>
+      </h2>
+      <p class="text-lg text-white/70 leading-relaxed" style="font-family: 'Inter', sans-serif;">
+        No car washes. No shortcuts. Just Nathan, his professional-grade gear, and hours of meticulous attention to your vehicle.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-stagger>
+      <div class="reveal relative group">
+        <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-[#e01f26]/20 hover:border-[#e01f26] transition-all duration-300 h-full">
+          <div class="flex items-start justify-between mb-6">
+            <span class="text-6xl font-bold text-[#e01f26]/20 group-hover:text-[#e01f26]/40 transition-colors" style="font-family: 'Syne', sans-serif;">01</span>
+            <div class="w-12 h-12 rounded-xl bg-[#e01f26]/10 flex items-center justify-center">
+              <i data-lucide="calendar-check" class="w-6 h-6 text-[#e01f26]"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">Book Online or Call</h3>
+          <p class="text-white/60 leading-relaxed text-sm" style="font-family: 'Inter', sans-serif;">Text or call Nathan at (949) 680-5141. Available 24/7 with same-week availability.</p>
+        </div>
+      </div>
+
+      <div class="reveal relative group">
+        <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-[#e01f26]/20 hover:border-[#e01f26] transition-all duration-300 h-full">
+          <div class="flex items-start justify-between mb-6">
+            <span class="text-6xl font-bold text-[#e01f26]/20 group-hover:text-[#e01f26]/40 transition-colors" style="font-family: 'Syne', sans-serif;">02</span>
+            <div class="w-12 h-12 rounded-xl bg-[#e01f26]/10 flex items-center justify-center">
+              <i data-lucide="map-pin" class="w-6 h-6 text-[#e01f26]"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">We Come to You</h3>
+          <p class="text-white/60 leading-relaxed text-sm" style="font-family: 'Inter', sans-serif;">Ladera Ranch, Mission Viejo, San Juan Capistrano — Nathan brings water, power, and pro tools.</p>
+        </div>
+      </div>
+
+      <div class="reveal relative group">
+        <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-[#e01f26]/20 hover:border-[#e01f26] transition-all duration-300 h-full">
+          <div class="flex items-start justify-between mb-6">
+            <span class="text-6xl font-bold text-[#e01f26]/20 group-hover:text-[#e01f26]/40 transition-colors" style="font-family: 'Syne', sans-serif;">03</span>
+            <div class="w-12 h-12 rounded-xl bg-[#e01f26]/10 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-6 h-6 text-[#e01f26]"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">Meticulous Detailing</h3>
+          <p class="text-white/60 leading-relaxed text-sm" style="font-family: 'Inter', sans-serif;">Every panel, crevice, and stitch gets the attention that earned Nathan a perfect 5.0 rating.</p>
+        </div>
+      </div>
+
+      <div class="reveal relative group">
+        <div class="bg-gradient-to-br from-[#e01f26] to-[#b01419] rounded-2xl p-8 border border-[#e01f26] hover:shadow-2xl hover:shadow-[#e01f26]/30 transition-all duration-300 h-full">
+          <div class="flex items-start justify-between mb-6">
+            <span class="text-6xl font-bold text-white/25" style="font-family: 'Syne', sans-serif;">04</span>
+            <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center">
+              <i data-lucide="award" class="w-6 h-6 text-white"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">Showroom Finish</h3>
+          <p class="text-white/80 leading-relaxed text-sm" style="font-family: 'Inter', sans-serif;">Walk out to a car that looks — and smells — better than the day you drove it off the lot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="py-20 md:py-28 lg:py-32 bg-[#f5f5f5]">
+  <div class="max-w-6xl mx-auto px-6 sm:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="reveal relative">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://zgnpmogdjnnhpwewavnr.supabase.co/storage/v1/object/public/project-images/55b2c0a7-3738-455c-b158-10c565b4c060/29e5c2ed-0fdd-419c-9aa2-35ca01ccf83d.png" alt="Nathan Browne detailing a car in a Ladera Ranch driveway" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f0f]/40 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-8 -right-4 md:-right-8 bg-[#0f0f0f] rounded-2xl p-6 shadow-2xl border border-[#e01f26]/30 max-w-[220px]">
+          <div class="flex items-center gap-1 mb-2">
+            <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+          </div>
+          <p class="text-white text-sm font-semibold" style="font-family: 'Inter', sans-serif;">"He has an unparalleled work ethic."</p>
+          <p class="text-[#e01f26] text-xs mt-1" style="font-family: 'Inter', sans-serif;">— Maureen G., San Clemente · Yelp</p>
+        </div>
+      </div>
+
+      <div>
+        <span class="reveal inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif; --d:120ms">
+          <span class="w-8 h-px bg-[#e01f26]"></span> Meet Nathan
+        </span>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+          A Student. An Entrepreneur. A <span class="text-[#e01f26]">Detail Perfectionist.</span>
+        </h2>
+        <p class="text-lg text-[#262626]/80 leading-relaxed mb-4" style="font-family: 'Inter', sans-serif;">
+          Nathan Browne started Browne's Mobile Detailing out of a simple obsession: every car deserves to look its absolute best. What began as weekend work in Ladera Ranch has become a trusted service for families and enthusiasts across South Orange County.
+        </p>
+        <p class="text-lg text-[#262626]/80 leading-relaxed mb-8" style="font-family: 'Inter', sans-serif;">
+          Balancing school with a growing business, Nathan brings the kind of hustle, positivity, and hands-on craftsmanship that has clients coming back for years — and leaving glowing reviews every single time.
+        </p>
+
+        <div class="grid grid-cols-3 gap-4 md:gap-6 pt-8 border-t border-[#0f0f0f]/10">
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-[#0f0f0f] mb-2" style="font-family: 'Syne', sans-serif;">5+</div>
+            <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Years Detailing</div>
+          </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-[#0f0f0f] mb-2" style="font-family: 'Syne', sans-serif;">500+</div>
+            <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Cars Detailed</div>
+          </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-[#e01f26] mb-2" style="font-family: 'Syne', sans-serif;">5.0★</div>
+            <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Google Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="py-20 md:py-28 lg:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6 sm:px-8">
+    <div class="reveal text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
+        <span class="w-8 h-px bg-[#e01f26]"></span> What Clients Say <span class="w-8 h-px bg-[#e01f26]"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+        Rated <span class="text-[#e01f26]">5.0</span> from 40 reviews.
+      </h2>
+      <div class="inline-flex items-center gap-2">
+        <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+        <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+        <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+        <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+        <i data-lucide="star" class="w-5 h-5 fill-[#e01f26] text-[#e01f26]"></i>
+        <span class="text-sm text-[#262626]/60 ml-2" style="font-family: 'Inter', sans-serif;">Verified reviews on Yelp</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-stagger>
+      <!-- Review 1 -->
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 flex flex-col">
+        <div class="flex items-center gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+        </div>
+        <p class="text-[#262626]/85 leading-relaxed mb-6 flex-1" style="font-family: 'Inter', sans-serif;">"Nathan is professional, reliable, and incredibly consistent. After every service, my cars are seriously shining. 100% recommend!"</p>
+        <div class="flex items-center gap-3 pt-5 border-t border-[#0f0f0f]/10">
+          <div class="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold" style="font-family: 'Syne', sans-serif;">S</div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <p class="text-sm font-bold text-[#0f0f0f]">Stephanie C.</p>
+            <p class="text-xs text-[#262626]/60">Newport Beach, CA</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 flex flex-col">
+        <div class="flex items-center gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+        </div>
+        <p class="text-[#262626]/85 leading-relaxed mb-6 flex-1" style="font-family: 'Inter', sans-serif;">"The convenience alone is a huge plus — he'll meet me at work, at home, wherever I need. My car always looks spotless inside and out, and he pays attention to the small details instead of rushing."</p>
+        <div class="flex items-center gap-3 pt-5 border-t border-[#0f0f0f]/10">
+          <div class="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold" style="font-family: 'Syne', sans-serif;">N</div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <p class="text-sm font-bold text-[#0f0f0f]">Noahh G.</p>
+            <p class="text-xs text-[#262626]/60">Laguna Niguel, CA</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-8 border border-[#0f0f0f]/10 flex flex-col">
+        <div class="flex items-center gap-1 mb-4">
+          <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
+        </div>
+        <p class="text-[#262626]/85 leading-relaxed mb-6 flex-1" style="font-family: 'Inter', sans-serif;">"They were professional, pleasant, and did a great job. Their pricing is very competitive and I would definitely hire them again."</p>
+        <div class="flex items-center gap-3 pt-5 border-t border-[#0f0f0f]/10">
+          <div class="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold" style="font-family: 'Syne', sans-serif;">D</div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <p class="text-sm font-bold text-[#0f0f0f]">David R.</p>
+            <p class="text-xs text-[#262626]/60">Laguna Beach, CA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal text-center mt-12">
+      <a href="https://www.yelp.com/biz/browne-s-mobile-detailing-ladera-ranch-2" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 border-2 border-[#0f0f0f] text-[#0f0f0f] font-semibold rounded-full hover:bg-[#0f0f0f] hover:text-white transition-all" style="font-family: 'Inter', sans-serif;">
+        Read all 40 reviews on Yelp
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="relative overflow-hidden py-20 md:py-28 lg:py-32" style="background: linear-gradient(135deg, #0f0f0f 0%, #262626 100%);">
+  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-20" style="background: #e01f26;"></div>
+  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-3xl opacity-10" style="background: #e01f26;"></div>
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#e01f26 1px, transparent 1px), linear-gradient(90deg, #e01f26 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 sm:px-8">
+    <div class="text-center mb-14 animate-on-scroll">
+      <p class="text-sm uppercase tracking-[0.3em] mb-4" style="color: #e01f26; font-family: 'Inter', sans-serif;">Book Your Detail</p>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5" style="font-family: 'Syne', sans-serif;">Ready for that <span style="color: #e01f26;">Showroom Shine?</span></h2>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto" style="font-family: 'Inter', sans-serif;">Tell us about your vehicle. Nathan will get back to you personally to schedule your mobile detail in Ladera Ranch and Orange County.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-8 items-start">
+      <!-- Contact Info Cards -->
+      <div class="lg:col-span-2 space-y-4 animate-on-scroll">
+        <a href="tel:+19496805141" class="group flex items-start gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-white/30 hover:-translate-y-1 transition-all duration-300 shadow-2xl">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: #e01f26;">
+            <i data-lucide="phone" class="w-5 h-5 text-white"></i>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-white/50 mb-1" style="font-family: 'Inter', sans-serif;">Call Nathan Directly</p>
+            <p class="text-lg font-bold text-white group-hover:text-[#e01f26] transition-colors" style="font-family: 'Syne', sans-serif;">+1 (949) 680-5141</p>
+          </div>
+        </a>
+
+        <div class="flex items-start gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: #e01f26;">
+            <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-white/50 mb-1" style="font-family: 'Inter', sans-serif;">Service Area</p>
+            <p class="text-base font-semibold text-white" style="font-family: 'Inter', sans-serif;">24 Sky Ranch Rd<br>Ladera Ranch, CA 92694</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: #e01f26;">
+            <i data-lucide="clock" class="w-5 h-5 text-white"></i>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-white/50 mb-1" style="font-family: 'Inter', sans-serif;">Availability</p>
+            <p class="text-base font-semibold text-white" style="font-family: 'Inter', sans-serif;">Open 24 Hours</p>
+            <p class="text-sm text-white/60 mt-1" style="font-family: 'Inter', sans-serif;">Mobile service — we come to you</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-5 rounded-2xl border shadow-2xl" style="background: rgba(224, 31, 38, 0.08); border-color: rgba(224, 31, 38, 0.3);">
+          <div class="flex gap-0.5">
+            <i data-lucide="star" class="w-4 h-4 fill-current" style="color: #e01f26;"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current" style="color: #e01f26;"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current" style="color: #e01f26;"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current" style="color: #e01f26;"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current" style="color: #e01f26;"></i>
+          </div>
+          <p class="text-sm text-white/80" style="font-family: 'Inter', sans-serif;"><span class="font-bold text-white">5.0</span> rating · 40 reviews</p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="lg:col-span-3 animate-on-scroll">
+        <div class="relative p-8 md:p-10 rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl">
+          <div class="absolute -top-3 -right-3 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest" style="background: #e01f26; color: #ffffff; font-family: 'Inter', sans-serif;">Free Quote</div>
+
+          <form id="contact-form" class="space-y-6" action="mailto:nathan@brownesmobiledetailing.com" method="POST" enctype="text/plain">
+            <div>
+              <label for="name" class="block text-xs uppercase tracking-widest text-white/60 mb-2" style="font-family: 'Inter', sans-serif;">Your Name</label>
+              <input type="text" id="name" name="name" required
+                class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style="font-family: 'Inter', sans-serif; --tw-ring-color: #e01f26;"
+                placeholder="John Smith">
+            </div>
+
+            <div>
+              <label for="email" class="block text-xs uppercase tracking-widest text-white/60 mb-2" style="font-family: 'Inter', sans-serif;">Email Address</label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style="font-family: 'Inter', sans-serif; --tw-ring-color: #e01f26;"
+                placeholder="you@email.com">
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs uppercase tracking-widest text-white/60 mb-2" style="font-family: 'Inter', sans-serif;">Vehicle & Service Details</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-none"
+                style="font-family: 'Inter', sans-serif; --tw-ring-color: #e01f26;"
+                placeholder="Tell us your vehicle make/model and which package interests you (Exterior Level 1/2, Express, Detailer's Choice, Premium Full, Premium Interior)."></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn"
+              class="group w-full flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-bold text-base uppercase tracking-widest transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              style="background: #e01f26; color: #ffffff; font-family: 'Syne', sans-serif;">
+              <span>Book My Detail</span>
+              <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <p class="text-xs text-center text-white/40 pt-2" style="font-family: 'Inter', sans-serif;">Or call Nathan directly at <a href="tel:+19496805141" class="underline hover:text-[#e01f26] transition-colors">(949) 680-5141</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="relative overflow-hidden" style="background: #0f0f0f;">
+  <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #e01f26, transparent);"></div>
+  <div class="absolute -top-40 right-1/3 w-96 h-96 rounded-full blur-3xl opacity-5" style="background: #e01f26;"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 sm:px-8 py-16 md:py-20">
+    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-14">
+      <!-- Brand -->
+      <div class="lg:col-span-5">
+        <img src="logo.jpg" alt="Browne's Mobile Detailing — Interior & Exterior Detail" class="h-16 w-auto mb-5">
+
+        <p class="text-white/60 leading-relaxed mb-6 max-w-md" style="font-family: 'Inter', sans-serif;">Premium mobile detailing by Nathan Browne. Detail-oriented, reliable, and thorough — bringing showroom shine to driveways across Ladera Ranch and Orange County.</p>
+
+        <div class="flex items-center gap-3">
+          <a href="https://maps.google.com" aria-label="Google Maps" class="w-11 h-11 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 text-white/70 hover:text-[#e01f26] hover:border-[#e01f26]/50 hover:-translate-y-1 transition-all duration-300">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Packages -->
+      <div class="lg:col-span-4">
+        <h4 class="text-sm font-bold uppercase tracking-[0.2em] mb-5" style="color: #e01f26; font-family: 'Syne', sans-serif;">Packages</h4>
+        <ul class="space-y-3" style="font-family: 'Inter', sans-serif;">
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Exterior — Level 1 · $80</a></li>
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Exterior — Level 2 · $160</a></li>
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Express Wash & Wax · $140</a></li>
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Detailer's Choice · $225</a></li>
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Premium Full Service · $350</a></li>
+          <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Premium Interior · $225</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="lg:col-span-3">
+        <h4 class="text-sm font-bold uppercase tracking-[0.2em] mb-5" style="color: #e01f26; font-family: 'Syne', sans-serif;">Get In Touch</h4>
+        <ul class="space-y-4" style="font-family: 'Inter', sans-serif;">
+          <li class="flex items-start gap-3">
+            <i data-lucide="phone" class="w-4 h-4 mt-1 flex-shrink-0" style="color: #e01f26;"></i>
+            <a href="tel:+19496805141" class="text-white/60 hover:text-[#e01f26] transition-colors">+1 (949) 680-5141</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="map-pin" class="w-4 h-4 mt-1 flex-shrink-0" style="color: #e01f26;"></i>
+            <span class="text-white/60">24 Sky Ranch Rd<br>Ladera Ranch, CA 92694</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="clock" class="w-4 h-4 mt-1 flex-shrink-0" style="color: #e01f26;"></i>
+            <span class="text-white/60">Open 24 Hours<br><span class="text-white/40 text-sm">Mobile service — we come to you</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-white/40" style="font-family: 'Inter', sans-serif;">&copy; 2026 Browne's Mobile Detailing. All rights reserved.</p>
+      <div class="flex items-center gap-2 text-sm" style="font-family: 'Inter', sans-serif;">
+        <div class="flex gap-0.5">
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current" style="color: #e01f26;"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current" style="color: #e01f26;"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current" style="color: #e01f26;"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current" style="color: #e01f26;"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current" style="color: #e01f26;"></i>
+        </div>
+        <span class="text-white/50">Rated 5.0 on Google</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  // stagger: give each child of a [data-stagger] container an incremental reveal delay
+  document.querySelectorAll('[data-stagger]').forEach(group => {
+    [...group.children].forEach((child, i) => {
+      const el = child.classList.contains('reveal') ? child : child.querySelector('.reveal');
+      if (el && !el.style.getPropertyValue('--d')) el.style.setProperty('--d', (i * 90) + 'ms');
+    });
+  });
+
+  // scroll-reveal — fade + rise as elements enter the viewport (once each).
+  // Uses getBoundingClientRect on scroll/rAF rather than IntersectionObserver so it
+  // fires reliably in every environment; content can never get stuck hidden.
+  let pending = [
+    ...[...document.querySelectorAll('.reveal')].map(el => ({ el, cls: 'in' })),
+    ...[...document.querySelectorAll('.animate-on-scroll')].map(el => ({ el, cls: 'visible' })),
+  ];
+  let ticking = false;
+  function check() {
+    ticking = false;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    pending = pending.filter(({ el, cls }) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92 && r.bottom > 0) { el.classList.add(cls); return false; }
+      return true;
+    });
+  }
+  function onScrollReveal() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+  check();
+  window.addEventListener('scroll', onScrollReveal, { passive: true });
+  window.addEventListener('resize', onScrollReveal, { passive: true });
+  window.addEventListener('load', check);
+
+  // header gains a shadow once you scroll off the very top
+  const header = document.getElementById('site-header');
+  const onScroll = () => header && header.classList.toggle('scrolled', window.scrollY > 10);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>
