@@ -37,15 +37,20 @@
     /* pop variant — cards rise + settle from a slight scale, springier easing */
     .reveal.pop { transform: translateY(34px) scale(.955); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.34,1.4,.5,1); }
     .reveal.pop.in { transform: none; }
+    /* section-title word reveal — each word rises up out of a clipped line, staggered */
+    .title-reveal .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+    .title-reveal .wi { display: inline-block; transform: translateY(120%); transition: transform .85s cubic-bezier(.16,1,.3,1); transition-delay: var(--wd, 0ms); will-change: transform; }
+    .title-reveal.in .wi { transform: translateY(0); }
     /* header shadow deepens once you scroll off the top */
     #site-header { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
     #site-header.scrolled { box-shadow: 0 8px 30px -12px rgba(0,0,0,.5); border-color: rgba(255,255,255,.12); }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal, .animate-on-scroll { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .title-reveal .wi { transform: none !important; transition: none !important; }
     }
   </style>
-  <noscript><style>.reveal,.animate-on-scroll{opacity:1!important;transform:none!important;}</style></noscript>
+  <noscript><style>.reveal,.animate-on-scroll{opacity:1!important;transform:none!important;}.title-reveal .wi{transform:none!important;}</style></noscript>
 </head>
 <body style="margin:0; padding:0;">
 
@@ -189,7 +194,7 @@
         <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
           <span class="w-8 h-px bg-[#e01f26]"></span> Detailing Packages
         </span>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight" style="font-family: 'Syne', sans-serif;">
+        <h2 data-title class="title-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight" style="font-family: 'Syne', sans-serif;">
           Pick your level of <span class="text-[#e01f26]">clean.</span>
         </h2>
         <p class="text-lg text-[#262626]/70 mt-6 leading-relaxed" style="font-family: 'Inter', sans-serif;">
@@ -317,7 +322,7 @@
       <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
         <span class="w-8 h-px bg-[#e01f26]"></span> The Browne's Process <span class="w-8 h-px bg-[#e01f26]"></span>
       </span>
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+      <h2 data-title class="title-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
         Four Steps to a <span class="text-[#e01f26]">Showroom Finish.</span>
       </h2>
       <p class="text-lg text-white/70 leading-relaxed" style="font-family: 'Inter', sans-serif;">
@@ -409,7 +414,7 @@
         <span class="reveal inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif; --d:120ms">
           <span class="w-8 h-px bg-[#e01f26]"></span> About Nathan
         </span>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+        <h2 data-title class="title-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
           It's just Nathan — and that's the <span class="text-[#e01f26]">whole point.</span>
         </h2>
         <p class="text-lg text-[#262626]/80 leading-relaxed mb-4" style="font-family: 'Inter', sans-serif;">
@@ -444,7 +449,7 @@
       <span class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-[#e01f26] font-semibold mb-4" style="font-family: 'Inter', sans-serif;">
         <span class="w-8 h-px bg-[#e01f26]"></span> What Clients Say <span class="w-8 h-px bg-[#e01f26]"></span>
       </span>
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
+      <h2 data-title class="title-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
         Rated <span class="text-[#e01f26]">5.0</span> from 40 reviews.
       </h2>
       <div class="inline-flex items-center gap-2">
@@ -521,7 +526,7 @@
   <div class="relative max-w-6xl mx-auto px-6 sm:px-8">
     <div class="text-center mb-14 animate-on-scroll">
       <p class="text-sm uppercase tracking-[0.3em] mb-4" style="color: #e01f26; font-family: 'Inter', sans-serif;">Book Your Detail</p>
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5" style="font-family: 'Syne', sans-serif;">Ready for that <span style="color: #e01f26;">Showroom Shine?</span></h2>
+      <h2 data-title class="title-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5" style="font-family: 'Syne', sans-serif;">Ready for that <span style="color: #e01f26;">Showroom Shine?</span></h2>
       <p class="text-lg text-white/70 max-w-2xl mx-auto" style="font-family: 'Inter', sans-serif;">Tell us about your vehicle. Nathan will get back to you personally to schedule your mobile detail in Ladera Ranch and Orange County.</p>
     </div>
 
@@ -700,8 +705,34 @@
   // scroll-reveal — fade + rise as elements enter the viewport (once each).
   // Uses getBoundingClientRect on scroll/rAF rather than IntersectionObserver so it
   // fires reliably in every environment; content can never get stuck hidden.
+  // split section titles into per-word spans wrapped in a clip line, so each word
+  // can rise up on reveal. Preserves the red accent words.
+  function splitTitle(el) {
+    const frag = document.createDocumentFragment();
+    let idx = 0;
+    const addWord = (word, colored) => {
+      const w = document.createElement('span'); w.className = 'w';
+      const wi = document.createElement('span'); wi.className = 'wi';
+      if (colored) wi.style.color = '#e01f26';
+      wi.textContent = word;
+      wi.style.setProperty('--wd', (idx * 65) + 'ms'); idx++;
+      w.appendChild(wi);
+      frag.appendChild(w);
+      frag.appendChild(document.createTextNode(' '));
+    };
+    el.childNodes.forEach(node => {
+      const colored = node.nodeType === 1 &&
+        (node.classList.contains('text-[#e01f26]') || /#e01f26/i.test(node.getAttribute('style') || ''));
+      (node.textContent || '').trim().split(/\s+/).filter(Boolean).forEach(wd => addWord(wd, colored));
+    });
+    el.textContent = '';
+    el.appendChild(frag);
+  }
+  document.querySelectorAll('.title-reveal').forEach(splitTitle);
+
   let pending = [
     ...[...document.querySelectorAll('.reveal')].map(el => ({ el, cls: 'in' })),
+    ...[...document.querySelectorAll('.title-reveal')].map(el => ({ el, cls: 'in' })),
     ...[...document.querySelectorAll('.animate-on-scroll')].map(el => ({ el, cls: 'visible' })),
   ];
   let ticking = false;
