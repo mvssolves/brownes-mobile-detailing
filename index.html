@@ -48,14 +48,16 @@
       transition: transform .9s cubic-bezier(.76,0,.24,1); }
     #loader::before { content: ""; position: absolute; width: 70vw; max-width: 520px; aspect-ratio: 1;
       background: radial-gradient(circle, rgba(224,31,38,.16), transparent 65%); pointer-events: none; }
+    /* full-screen shine — a wide light sweeps across the whole loader */
+    #loader::after { content: ""; position: absolute; inset: -20%; pointer-events: none;
+      background: linear-gradient(100deg, transparent 38%, rgba(255,255,255,.10) 48%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.10) 52%, transparent 62%);
+      transform: translateX(-120%); animation: loadsheen 1.5s cubic-bezier(.5,0,.3,1) .2s both; }
+    @keyframes loadsheen { to { transform: translateX(120%); } }
     #loader.done { transform: translateY(-101%); }
     #loader.gone { display: none; }
     /* screen blend drops the logo's black background so it fuses into the loader — no visible box */
-    .load-logo { position: relative; overflow: hidden; animation: loadpop .7s cubic-bezier(.34,1.5,.5,1) both; }
+    .load-logo { position: relative; animation: loadpop .7s cubic-bezier(.34,1.5,.5,1) both; }
     .load-logo img { display: block; height: clamp(84px, 27vw, 150px); width: auto; }
-    .load-logo .shine { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
-      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.45) 50%, transparent 62%);
-      transform: translateX(-130%); animation: loadshine 1.15s ease-in-out .35s both; }
     body.loading { overflow: hidden; }
     @keyframes loadpop { from { opacity: 0; transform: scale(.82); } to { opacity: 1; transform: none; } }
     @keyframes loadshine { to { transform: translateX(130%); } }
@@ -117,7 +119,6 @@
 <div id="loader" aria-hidden="true">
   <div class="load-logo">
     <img src="logo-trans.png" alt="">
-    <span class="shine"></span>
   </div>
 </div>
 
