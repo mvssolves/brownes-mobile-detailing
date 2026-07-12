@@ -689,10 +689,7 @@
       document.body.classList.remove('loading');
       setTimeout(() => loader.classList.add('gone'), 950);
     };
-    let loaded = false;
-    window.addEventListener('load', () => { loaded = true; });
-    setTimeout(() => { loaded ? dismiss() : window.addEventListener('load', dismiss, { once: true }); }, 1650);
-    setTimeout(dismiss, 4000); // hard fallback
+    setTimeout(dismiss, 1700); // decorative — dismiss on a fixed timer, never wait on full page load
   })();
 
   // stagger: give each child of a [data-stagger] container an incremental reveal delay
