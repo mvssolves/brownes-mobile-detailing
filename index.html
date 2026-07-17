@@ -138,7 +138,8 @@
     @media (prefers-reduced-motion: reduce) { .shine-btn::after { display: none; } }
 
     /* buttery carousel */
-    .car { position: relative; overflow: hidden; border-radius: 2rem; }
+    /* -webkit-mask forces Safari to composite the rounded clip properly — without it, iOS flashes white behind rounded+overflow-hidden boxes mid-scroll */
+    .car { position: relative; overflow: hidden; border-radius: 2rem; background: #0f0f0f; transform: translateZ(0); -webkit-transform: translateZ(0); -webkit-mask-image: -webkit-radial-gradient(white, black); }
     .car-track { display: flex; height: 100%; transition: transform .8s cubic-bezier(.16,1,.3,1); will-change: transform; }
     .car-slide { flex: 0 0 100%; }
     .car-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
@@ -266,6 +267,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Trim shine + ceramic spray sealant</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Door/trunk jambs + inside windows</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#e01f26] hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4"></i> Book this</a>
       </div>
 
       <!-- Exterior Only Level 2 -->
@@ -281,6 +283,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Clay bar treatment</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> 8–10 month ceramic wax + trim restore</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#e01f26] hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4"></i> Book this</a>
       </div>
 
       <!-- Detailer's Choice - Featured -->
@@ -300,6 +303,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Leather conditioning + UV protection</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Paint decon + 6-month ceramic</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4 text-[#e01f26]"></i> Book this</a>
       </div>
 
       <!-- Express Wash and Wax -->
@@ -315,6 +319,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Interior vacuum + surface wipe down</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Windows in &amp; out + ceramic sealant</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#e01f26] hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4"></i> Book this</a>
       </div>
 
       <!-- Premium Full Service -->
@@ -331,6 +336,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Steam clean + hot water extraction</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Ozone treatment + full disinfection</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#e01f26] hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4"></i> Book this</a>
       </div>
 
       <!-- Premium Interior Only -->
@@ -346,6 +352,7 @@
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Hot water extraction + ozone disinfect</li>
           <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#e01f26]"></i> Leather conditioning + air freshener</li>
         </ul>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#e01f26] hover:gap-2.5 transition-all" style="font-family: 'Inter', sans-serif;"><i data-lucide="calendar-check" class="w-4 h-4"></i> Book this</a>
       </div>
 
     </div>
