@@ -111,7 +111,10 @@
     @media (prefers-reduced-motion: reduce) { .hero-gloss { animation: none; } }
     /* mobile: freeze the continuous blurred gloss animation — large filter:blur() + mix-blend-mode
        recomposited every frame for 16-22s loops is real GPU cost on phones, worst right as you scroll past hero */
-    @media (max-width: 767px) { .hero-gloss, .hero-gloss.g2 { animation: none; } }
+    @media (max-width: 767px) {
+      .hero-gloss { animation: heroGloss 42s ease-in-out infinite; }
+      .hero-gloss.g2 { animation: heroGloss2 58s ease-in-out infinite; }
+    }
 
     /* water beading — faint droplets, like a freshly washed panel. Subtle, dark sections only */
     .beads { position: absolute; inset: 0; pointer-events: none; opacity: .55; mix-blend-mode: screen;
