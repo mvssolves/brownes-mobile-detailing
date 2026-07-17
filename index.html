@@ -113,6 +113,14 @@
         radial-gradient(circle at 26% 14%, rgba(255,255,255,.4) 0 1px, rgba(255,255,255,.04) 2px, transparent 11px),
         radial-gradient(circle at 72% 88%, rgba(255,255,255,.45) 0 1px, rgba(255,255,255,.05) 2px, transparent 16px); }
 
+    /* button shine — a light sweep on hover, cheap (transform-only, runs once per hover, not continuous) */
+    .shine-btn { position: relative; overflow: hidden; }
+    .shine-btn::after { content: ""; position: absolute; top: 0; left: -75%; width: 45%; height: 100%;
+      background: linear-gradient(115deg, transparent, rgba(255,255,255,.4), transparent);
+      transform: skewX(-18deg); transition: left .65s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+    .shine-btn:hover::after { left: 130%; }
+    @media (prefers-reduced-motion: reduce) { .shine-btn::after { display: none; } }
+
     /* buttery carousel */
     .car { position: relative; overflow: hidden; border-radius: 2rem; }
     .car-track { display: flex; height: 100%; transition: transform .8s cubic-bezier(.16,1,.3,1); will-change: transform; }
@@ -147,9 +155,11 @@
   <a href="tel:+19496805141" class="dock-icon" aria-label="Call Nathan"><i data-lucide="phone" class="w-4 h-4"></i></a>
 </nav>
 
-<section id="hero" data-bg="#f5f5f5" class="relative overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20 lg:py-32">
-  <div class="absolute top-40 -left-20 w-72 h-72 rounded-full bg-[#e01f26]/10 blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-[#0f0f0f]/5 blur-3xl pointer-events-none"></div>
+<section id="hero" data-bg="#0f0f0f" class="relative overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20 lg:py-32">
+  <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle at 20% 30%, #e01f26 1px, transparent 1px), radial-gradient(circle at 80% 70%, #e01f26 1px, transparent 1px); background-size: 60px 60px;"></div>
+  <div class="absolute -top-1/4 -left-1/4 w-[60%] h-[140%] pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(224,31,38,.16), transparent 65%);"></div>
+  <div class="absolute -bottom-1/3 right-0 w-[45%] h-[100%] pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(255,255,255,.05), transparent 70%);"></div>
+  <div class="beads" aria-hidden="true"></div>
   <div class="hero-gloss" aria-hidden="true"></div>
   <div class="hero-gloss g2" aria-hidden="true"></div>
 
@@ -157,22 +167,22 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
       <div class="relative z-10 min-w-0 flex flex-col justify-end pb-[9vh] min-h-[calc(100svh-8rem)] lg:min-h-0 lg:pb-0 lg:block" data-stagger>
-        <h1 style="font-family: 'Syne', sans-serif;" class="reveal text-[42px] sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-[#0f0f0f] mb-5">
+        <h1 style="font-family: 'Syne', sans-serif;" class="reveal text-[42px] sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-white mb-5">
           Showroom Shine,<br>
           Delivered To Your<br>
-          <span class="italic text-[#e01f26]">Driveway<span class="text-[#0f0f0f]">.</span></span>
+          <span class="italic text-[#e01f26]">Driveway<span class="text-white">.</span></span>
         </h1>
 
-        <p style="font-family: 'Inter', sans-serif;" class="reveal text-base sm:text-lg leading-relaxed text-[#0f0f0f]/70 mb-7 max-w-xl">
+        <p style="font-family: 'Inter', sans-serif;" class="reveal text-base sm:text-lg leading-relaxed text-white/70 mb-7 max-w-xl">
           Hand detailing that comes to you — anywhere in Ladera Ranch and Orange County. Nathan takes the time most shops won't, so your car leaves looking like it just rolled off the showroom floor.
         </p>
 
         <div class="reveal flex flex-col sm:flex-row gap-4" style="font-family: 'Inter', sans-serif;">
-          <a href="#contact" class="group inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 bg-[#e01f26] text-white font-semibold rounded-full hover:bg-[#b01419] transition-all hover:shadow-xl hover:shadow-[#e01f26]/25">
+          <a href="#contact" class="shine-btn group inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 bg-[#e01f26] text-white font-semibold rounded-full hover:bg-[#b01419] transition-all hover:shadow-xl hover:shadow-[#e01f26]/25 active:scale-[0.97]">
             Book A Detail
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
-          <a href="tel:+19496805141" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent border-2 border-[#0f0f0f] text-[#0f0f0f] font-semibold rounded-full hover:bg-[#0f0f0f] hover:text-white transition-all">
+          <a href="tel:+19496805141" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-[#0f0f0f] transition-all active:scale-[0.97]">
             <i data-lucide="phone" class="w-4 h-4"></i>
             Call Nathan
           </a>
@@ -228,9 +238,7 @@
 
       <!-- Exterior Only Level 1 -->
       <div class="reveal pop group bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
-          <i data-lucide="droplets" class="w-7 h-7 text-white"></i>
-        </div>
+        <div class="mb-6"><i data-lucide="droplets" class="w-9 h-9 text-[#e01f26] group-hover:scale-110 transition-transform"></i></div>
         <div class="flex items-baseline justify-between mb-2">
           <h3 class="text-xl sm:text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Exterior — Level 1</h3>
           <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$80</span>
@@ -245,9 +253,7 @@
 
       <!-- Exterior Only Level 2 -->
       <div class="reveal pop group bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
-          <i data-lucide="shield" class="w-7 h-7 text-white"></i>
-        </div>
+        <div class="mb-6"><i data-lucide="shield" class="w-9 h-9 text-[#e01f26] group-hover:scale-110 transition-transform"></i></div>
         <div class="flex items-baseline justify-between mb-2">
           <h3 class="text-xl sm:text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Exterior — Level 2</h3>
           <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$160</span>
@@ -281,9 +287,7 @@
 
       <!-- Express Wash and Wax -->
       <div class="reveal pop group bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
-          <i data-lucide="spray-can" class="w-7 h-7 text-white"></i>
-        </div>
+        <div class="mb-6"><i data-lucide="spray-can" class="w-9 h-9 text-[#e01f26] group-hover:scale-110 transition-transform"></i></div>
         <div class="flex items-baseline justify-between mb-2">
           <h3 class="text-xl sm:text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Express Wash &amp; Wax</h3>
           <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$140</span>
@@ -298,9 +302,7 @@
 
       <!-- Premium Full Service -->
       <div class="reveal pop group bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
-          <i data-lucide="crown" class="w-7 h-7 text-white"></i>
-        </div>
+        <div class="mb-6"><i data-lucide="crown" class="w-9 h-9 text-[#e01f26] group-hover:scale-110 transition-transform"></i></div>
         <div class="flex items-baseline justify-between mb-2">
           <h3 class="text-xl sm:text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Premium Full Service</h3>
           <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$350</span>
@@ -316,9 +318,7 @@
 
       <!-- Premium Interior Only -->
       <div class="reveal pop group bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 hover:border-[#e01f26] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-        <div class="w-14 h-14 rounded-xl bg-[#0f0f0f] flex items-center justify-center mb-6 group-hover:bg-[#e01f26] transition-colors">
-          <i data-lucide="armchair" class="w-7 h-7 text-white"></i>
-        </div>
+        <div class="mb-6"><i data-lucide="armchair" class="w-9 h-9 text-[#e01f26] group-hover:scale-110 transition-transform"></i></div>
         <div class="flex items-baseline justify-between mb-2">
           <h3 class="text-xl sm:text-2xl font-bold text-[#0f0f0f]" style="font-family: 'Syne', sans-serif;">Premium Interior</h3>
           <span class="text-lg font-bold text-[#e01f26]" style="font-family: 'Syne', sans-serif;">$225</span>
@@ -374,7 +374,7 @@
               <i data-lucide="map-pin" class="w-6 h-6 text-[#e01f26]"></i>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">We Come to You</h3>
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Syne', sans-serif;">Nathan Comes to You</h3>
           <p class="text-white/60 leading-relaxed text-sm" style="font-family: 'Inter', sans-serif;">Ladera Ranch, Mission Viejo, San Juan Capistrano — Nathan brings water, power, and pro tools.</p>
         </div>
       </div>
@@ -438,20 +438,20 @@
         <h2 data-title class="title-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-[#0f0f0f] leading-tight mb-6" style="font-family: 'Syne', sans-serif;">
           It's just Nathan — and that's the <span class="text-[#e01f26]">whole point.</span>
         </h2>
-        <p class="text-lg text-[#262626]/55 italic leading-relaxed mb-8" style="font-family: 'Inter', sans-serif;">
+        <p class="reveal text-lg text-[#262626]/55 italic leading-relaxed mb-8" style="font-family: 'Inter', sans-serif; --d:180ms">
           Nathan's own description goes here — his story, his approach, and why he does what he does. Coming soon.
         </p>
 
-        <div class="grid grid-cols-3 gap-4 md:gap-6 pt-8 border-t border-[#0f0f0f]/10">
-          <div>
+        <div class="grid grid-cols-3 gap-4 md:gap-6 pt-8 border-t border-[#0f0f0f]/10" data-stagger data-stagger-step="100">
+          <div class="reveal pop">
             <div class="text-4xl md:text-5xl font-bold text-[#e01f26] mb-2" style="font-family: 'Syne', sans-serif;">5.0★</div>
             <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Yelp Rating</div>
           </div>
-          <div>
+          <div class="reveal pop">
             <div class="text-4xl md:text-5xl font-bold text-[#0f0f0f] mb-2" style="font-family: 'Syne', sans-serif;">40</div>
             <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Five-Star Reviews</div>
           </div>
-          <div>
+          <div class="reveal pop">
             <div class="text-4xl md:text-5xl font-bold text-[#0f0f0f] mb-2" style="font-family: 'Syne', sans-serif;">24/7</div>
             <div class="text-xs uppercase tracking-widest text-[#262626]/60" style="font-family: 'Inter', sans-serif;">Book Anytime</div>
           </div>
@@ -482,7 +482,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-stagger>
       <!-- Review 1 -->
-      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col">
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col hover:border-[#e01f26] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
         <div class="flex items-center gap-1 mb-4">
           <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
         </div>
@@ -497,7 +497,7 @@
       </div>
 
       <!-- Review 2 -->
-      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col">
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col hover:border-[#e01f26] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
         <div class="flex items-center gap-1 mb-4">
           <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
         </div>
@@ -512,7 +512,7 @@
       </div>
 
       <!-- Review 3 -->
-      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col">
+      <div class="reveal bg-[#f5f5f5] rounded-2xl p-6 sm:p-8 border border-[#0f0f0f]/10 flex flex-col hover:border-[#e01f26] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
         <div class="flex items-center gap-1 mb-4">
           <i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i><i data-lucide="star" class="w-4 h-4 fill-[#e01f26] text-[#e01f26]"></i>
         </div>
@@ -544,26 +544,12 @@
     <div class="text-center mb-14 animate-on-scroll">
       <p class="text-sm uppercase tracking-[0.3em] mb-4" style="color: #e01f26; font-family: 'Inter', sans-serif;">Book Your Detail</p>
       <h2 data-title class="title-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5" style="font-family: 'Syne', sans-serif;">Ready when <span style="color: #e01f26;">you are.</span></h2>
-      <p class="text-lg text-white/70 max-w-2xl mx-auto" style="font-family: 'Inter', sans-serif;">Tell us about your vehicle. Nathan will get back to you personally to schedule your mobile detail in Ladera Ranch and Orange County.</p>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto" style="font-family: 'Inter', sans-serif;">Tell Nathan about your vehicle and he'll get back to you personally to schedule your mobile detail in Ladera Ranch and Orange County.</p>
     </div>
 
-    <div class="grid lg:grid-cols-5 gap-8 items-start">
-      <!-- Contact Info Cards -->
-      <div class="lg:col-span-2 space-y-4 animate-on-scroll">
-        <div class="flex items-start gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl">
-          <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: #e01f26;">
-            <i data-lucide="clock" class="w-5 h-5 text-white"></i>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-widest text-white/50 mb-1" style="font-family: 'Inter', sans-serif;">Availability</p>
-            <p class="text-base font-semibold text-white" style="font-family: 'Inter', sans-serif;">Open 24 Hours</p>
-            <p class="text-sm text-white/60 mt-1" style="font-family: 'Inter', sans-serif;">Mobile service — we come to you</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Form (booking CTA — placed first, ahead of contact info) -->
-      <div class="lg:col-span-3 order-first animate-on-scroll">
+    <div class="max-w-2xl mx-auto">
+      <!-- Booking — swap this whole form for the Cal.com embed once Nathan sends his link -->
+      <div class="animate-on-scroll">
         <div class="relative p-8 md:p-10 rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl">
 
           <form id="contact-form" class="space-y-6" action="mailto:nathan@brownesmobiledetailing.com" method="POST" enctype="text/plain">
@@ -588,11 +574,11 @@
               <textarea id="message" name="message" rows="5" required
                 class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-none"
                 style="font-family: 'Inter', sans-serif; --tw-ring-color: #e01f26;"
-                placeholder="Tell us your vehicle make/model and which package interests you (Exterior Level 1/2, Express, Detailer's Choice, Premium Full, Premium Interior)."></textarea>
+                placeholder="Tell Nathan your vehicle make/model and which package interests you (Exterior Level 1/2, Express, Detailer's Choice, Premium Full, Premium Interior)."></textarea>
             </div>
 
             <button type="submit" id="submit-btn"
-              class="group w-full flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-bold text-base uppercase tracking-widest transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              class="shine-btn group w-full flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-bold text-base uppercase tracking-widest transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-[0.98]"
               style="background: #e01f26; color: #ffffff; font-family: 'Syne', sans-serif;">
               <span>Book My Detail</span>
               <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
@@ -611,9 +597,9 @@
   <div class="absolute -top-40 right-1/3 w-96 h-96 rounded-full blur-3xl opacity-5" style="background: #e01f26;"></div>
 
   <div class="relative max-w-6xl mx-auto px-6 sm:px-8 py-16 md:py-20">
-    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-14">
+    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-14" data-stagger data-stagger-step="120">
       <!-- Brand -->
-      <div class="lg:col-span-5">
+      <div class="reveal lg:col-span-5">
         <img src="logo-trans.png" alt="Browne's Mobile Detailing — Interior & Exterior Detail" class="h-16 w-auto mb-5">
 
         <p class="text-white/60 leading-relaxed mb-6 max-w-md" style="font-family: 'Inter', sans-serif;">Premium mobile detailing by Nathan Browne. Detail-oriented, reliable, and thorough — bringing showroom shine to driveways across Ladera Ranch and Orange County.</p>
@@ -626,7 +612,7 @@
       </div>
 
       <!-- Packages -->
-      <div class="lg:col-span-4">
+      <div class="reveal lg:col-span-4">
         <h4 class="text-sm font-bold uppercase tracking-[0.2em] mb-5" style="color: #e01f26; font-family: 'Syne', sans-serif;">Packages</h4>
         <ul class="space-y-3" style="font-family: 'Inter', sans-serif;">
           <li><a href="#services" class="text-white/60 hover:text-[#e01f26] inline-block transition-all duration-300 hover:-translate-y-0.5">Exterior — Level 1 · $80</a></li>
@@ -639,7 +625,7 @@
       </div>
 
       <!-- Contact -->
-      <div class="lg:col-span-3">
+      <div class="reveal lg:col-span-3">
         <h4 class="text-sm font-bold uppercase tracking-[0.2em] mb-5" style="color: #e01f26; font-family: 'Syne', sans-serif;">Get In Touch</h4>
         <ul class="space-y-4" style="font-family: 'Inter', sans-serif;">
           <li class="flex items-start gap-3">
@@ -659,7 +645,7 @@
     </div>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="reveal pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4" style="--d:100ms">
       <p class="text-sm text-white/40" style="font-family: 'Inter', sans-serif;">&copy; 2026 Browne's Mobile Detailing. All rights reserved.</p>
       <div class="flex items-center gap-2 text-sm" style="font-family: 'Inter', sans-serif;">
         <div class="flex gap-0.5">
